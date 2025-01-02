@@ -3,7 +3,7 @@ const path = require('path');
 const jsonServer = require('json-server');
 
 const app = express();
-const PORT = process.env.PORT || 3300;
+const PORT = process.env.PORT || 3333;
 
 // Serve React app
 app.use(express.static(path.join(__dirname, 'build')));
