@@ -1,0 +1,171 @@
+
+  body{
+    margin: 0px;
+    padding: 0px;
+
+}
+
+#header{
+  background-color: #28a745;
+ float: left;
+ height: 50px;
+ width: 100%;
+  position: fixed;
+ z-index: 1;
+}
+
+/* --------------------------------------------------------- */
+
+#headerHeadingBox{
+ /* background-color: cyan; */
+ float: left;
+ height: 50px;
+ letter-spacing: 1.4;
+ font-size: 20px;  
+}
+
+#headerHeadingBox h3{
+margin: 0px;
+padding-top: 10px;
+padding-left: 10px;
+color: rgba(255, 255, 255, 0.90);
+}
+
+/* --------------------------------------------------------- */
+
+#headerMenuBox{
+ /* background-color: red; */
+ float:right;
+ height: 50px;
+ text-align: center;
+ margin-right: 40px;
+}
+
+
+#headerMenuBox a{
+text-decoration: none;
+display: inline-block;
+font-size: x-large;
+height: 100%;
+color: rgb(255, 255, 255);
+margin-left: 15px;
+cursor: pointer;
+}
+
+#headerMenuBox a span{
+   position: relative;
+   font-size:large;
+   top:10px;
+}
+
+/* --------------------------------------------------------- */
+
+#content{
+  background-image: url("admin-logo.png");
+  background-size: cover;
+  width: 1340;
+}
+
+#sideMenubar{
+  background-image: url("admin-logo.png");
+  background-size: cover;
+  width: 100%;
+  height: 520px;
+  float: left;
+  position: fixed;
+  top: 50px;
+  height: 100%;
+}
+
+
+#sideMenubarImageBox{
+  width: 200px;
+  float: left;
+  background-color: #28a745;
+  text-align: center;
+  margin-top: 10px;
+} 
+
+
+#sideMenubarList{
+width: 200px;
+height: 400px;
+float: left;
+font-size: large;
+background-color: #28a745;
+
+margin-top: 20px;
+
+}
+
+
+#sideMenubarList button{
+ text-decoration: none;
+ display:block;
+ margin-bottom: 20px;
+ color: rgb(247, 243, 243);
+ margin-left: 12px;
+
+ background-color: transparent;
+ outline: 0;
+ border: transparent;
+
+ font-size: large;
+}
+
+#sideMenubarList button i{
+padding-right: 10px;
+}
+
+#sideMenubarList button:hover{
+color: white;
+cursor: pointer;
+
+}
+
+
+.removeUnderline{
+  text-decoration: none;
+}
+
+
+ 
+     
+   
+
+#box{
+
+
+
+  width:100%;
+  height:550px;
+  float: right;
+  position: relative;
+  top:50px;
+} 
+#box h1{
+  text-align: center;
+}
+#image{
+  width:25%;
+  height:550px;
+  float:left;
+  background-image: url("admin-logo.png");
+  background-repeat: no-repeat;
+  background-position:bottom;
+  position: fixed;
+
+
+}
+#image h1{
+
+  text-align:center;
+}
+#display{
+  width:70%;
+  height:550px;
+  float: right;
+  position: relative;
+
+} 
+

@@ -1,0 +1,85 @@
+
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] ,
+  input[type="tel"]{
+    height: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    
+  }
+  input[type="radio"]{
+    height:10px;
+  }
+  input[type="submit"] {
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    background: #28a745;
+    border: 1px solid #0b0c0c;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .register-form {
+    
+    margin: auto;
+    padding: 2rem;
+    padding-top: 0%;
+    height:94%;
+    width:50%;
+    border: #0b0c0c;
+    box-shadow: 10 4px 8px 10 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  .list-container {
+    display: flex;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+  
+  .title {
+    font-size: 25px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    
+  }
+  
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 5x;
+  }
+  .input-container label{
+    text-align: left;
+  }
+  .signup{
+    margin-top: 15px;
+  }
+  .signup a{
+    text-decoration: none;
+    color: #0606df;
+}
+.form p{
+  margin: 10px;
+}
+.editform table{
+  border:white;
+}
+.editform tr{
+  border: white;
+}
+.editform td{
+  background-color: white;
+  border: 0px;
+  text-align: left;
+}
