@@ -11,14 +11,16 @@
 
        const [students , setStudents] = useState([]);
 
-       useEffect(()=> {
-         async function getAllStudent(){
-           let value = await axios.get("http://localhost:3333/user");
-           setStudents(value.data);
-         }
-         getAllStudent();
-       },[])
-
+       useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
+        async function getAllStudent() {
+            let value = await axios.get(`${apiUrl}/user`); // Use apiUrl here
+            setStudents(value.data);
+        }
+        getAllStudent();
+    }, []);
+    
          return (
              <>
                <div id={style.displayHeadingBox}> 

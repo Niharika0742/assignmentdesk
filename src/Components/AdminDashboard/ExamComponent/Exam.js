@@ -28,15 +28,16 @@
 
       const [exams , setExams] = useState([]);
 
-      useEffect(()=>{
-         
-         async function getAllExam(){
-             let value = await axios.get("http://localhost:3333/Exam");
-             setExams(value.data);
-            //  console.log(exams);
-         }
-             getAllExam();
-      },[]);
+      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
+
+      useEffect(() => {
+          async function getAllExam() {
+              // Use apiUrl instead of hardcoded URL
+              let value = await axios.get(`${apiUrl}/Exam`);
+              setExams(value.data);
+          }
+          getAllExam();
+      }, []);
 
 
 // --------------------Adding Exam And re-render Exam component-----------------
@@ -78,8 +79,9 @@
         });
         //  console.log(exam);
     }
-    async function handleAddNewExam(){
-        await axios.post("http://localhost:3333/Exam" , exam);
+    async function handleAddNewExam() {
+        // Use apiUrl instead of hardcoded URL
+        await axios.post(`${apiUrl}/Exam`, exam);
         setStatus(true);
     }
 
@@ -91,31 +93,30 @@
        const [questions , setQuestions] = useState([]);
 
        useEffect(() => {
-           async function getAllQuestions(){
-               let value = await axios.get("http://localhost:3333/question");
-               setQuestions(value.data);
-            }
-            getAllQuestions();
-       },[])
+        async function getAllQuestions() {
+            // Use apiUrl instead of hardcoded URL
+            let value = await axios.get(`${apiUrl}/question`);
+            setQuestions(value.data);
+        }
+        getAllQuestions();
+    }, []);
 
 
        const [statusDeleteExam , setStatusDeleteExam] = useState();
 
 
-       async function deleteExam(id){
-        //    console.log(id);
-           
-            for(let i=0; i<questions.length ;i++)
-            {
-                if( parseInt( questions[i].exam_id) === parseInt( id )){
-                    // console.log(questions[i].id);
-                    await axios.delete(`http://localhost:3333/question/${questions[i].id}`);
-                } 
+       async function deleteExam(id) {
+        // Check for questions linked to the exam before deletion
+        for (let i = 0; i < questions.length; i++) {
+            if (parseInt(questions[i].exam_id) === parseInt(id)) {
+                // Use apiUrl instead of hardcoded URL
+                await axios.delete(`${apiUrl}/question/${questions[i].id}`);
             }
-            await axios.delete(`http://localhost:3333/exam/${id}`);
-            setStatusDeleteExam(true);
-       }
-
+        }
+        // Use apiUrl instead of hardcoded URL
+        await axios.delete(`${apiUrl}/exam/${id}`);
+        setStatusDeleteExam(true);
+    }
       if(status) return <Exam />
 
       if(statusDeleteExam) return <Exam />

@@ -34,62 +34,60 @@ import style from "./Subject.module.css";
      // --------------- Fetching all subjects from db.json file-------------------------
 
       const [subjects , setSubjects] = useState([]);
-
-         useEffect(()=>{
-            
-            async function getAllSubject(){
-                let value = await axios.get("http://localhost:3333/subject");
-                setSubjects(value.data);
-                //  console.log(value.data[0].subject_name);
-            }
-                getAllSubject();
-         },[]);
-
-     // --------------------Adding Subject And re-render subject component-----------------
-     var date = new Date();
-     var d =  date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() ;
-     var t =  date.getHours() + ":" + date.getMinutes() +  ":" + date.getSeconds() ;
-
-      const [subject , setSubject] = useState({
-          subject_name:"",desc:"",file:"",subject_date:d+" "+t
-      });
-      
-      function handlecourse(e){
-        const file=e.target.files;
-        const reader =new FileReader();
+      useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
+        async function getAllSubject() {
+            let value = await axios.get(`${apiUrl}/subject`); // Use apiUrl here
+            setSubjects(value.data);
+        }
+        getAllSubject();
+    }, []);
+    
+    // --------------------Adding Subject And re-render subject component-----------------
+    var date = new Date();
+    var d = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    var t = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    
+    const [subject, setSubject] = useState({
+        subject_name: "",
+        desc: "",
+        file: "",
+        subject_date: d + " " + t
+    });
+    
+    function handlecourse(e) {
+        const file = e.target.files;
+        const reader = new FileReader();
         reader.onload = () => {
-            setSubject({ 
-        ...subject,
-        [e.target.name]: file
-       });
-        }
-        }
-       
-
-    function handleInput(e){
-        setSubject({ 
+            setSubject({
+                ...subject,
+                [e.target.name]: file
+            });
+        };
+    }
+    
+    function handleInput(e) {
+        setSubject({
             ...subject,
             [e.target.name]: e.target.value
         });
         //  console.log(exam);
     }
-
-
-       async function handleAddNewSubject(){
-            await axios.post("http://localhost:3333/subject" , subject);
-            setStatus(true);
-        }
-
-        const [status , setStatus] = useState();
-
-      
-
+    
+    async function handleAddNewSubject() {
+        await axios.post(`${apiUrl}/subject`, subject); // Use apiUrl here
+        setStatus(true);
+    }
+    
+    const [status, setStatus] = useState();
+    
     // ------------------------Deleting Subject and reload component------------------------------
-
-       async function deleteSubject(id){
-          await axios.delete(`http://localhost:3333/subject/${id}`);
-          setStatusDelete(true);
-       }
+    
+    async function deleteSubject(id) {
+        await axios.delete(`${apiUrl}/subject/${id}`); // Use apiUrl here
+        setStatusDelete(true);
+    }    
 
        const [statusDelete , setStatusDelete] = useState();
       

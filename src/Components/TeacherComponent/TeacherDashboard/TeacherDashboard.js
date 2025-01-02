@@ -31,13 +31,16 @@
     function TeacherDashboard(){
         const {id} = useParams();
         const [user,setUser]=useState();
-        useEffect(()=>{    
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
+
+        useEffect(() => {    
             async function getAllusers(){
-                let value = await axios.get(`http://localhost:3333/user/${id}`);
+                let value = await axios.get(`${apiUrl}/user/${id}`);
                 setUser(value.data.uname);
             }
-                getAllusers();
-         },[id]);
+            getAllusers();
+        }, [id]);
+        
        
 
          let history = useHistory();

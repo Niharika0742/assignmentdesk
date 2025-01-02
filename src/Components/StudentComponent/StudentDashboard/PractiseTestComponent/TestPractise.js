@@ -33,20 +33,23 @@
      let history = useHistory();
 
     const [movies, setMovies] = useState([]);
-    useEffect(()=>{    
-        async function getAllusers(){
-            let value = await axios.get(`http://localhost:3333/subject/${id}`);
-          
+    useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
+        async function getAllusers() {
+            let value = await axios.get(`${apiUrl}/subject/${id}`); // Use apiUrl here
+    
             const wb = read(value.data.file);
-                const sheets = wb.SheetNames;
-
-                if (sheets.length) {
-                    const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
-                    setMovies(rows)
-                }
+            const sheets = wb.SheetNames;
+    
+            if (sheets.length) {
+                const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
+                setMovies(rows);
+            }
         }
-            getAllusers();
-     },[id]);
+        getAllusers();
+    }, [id]);
+    
 
 
 

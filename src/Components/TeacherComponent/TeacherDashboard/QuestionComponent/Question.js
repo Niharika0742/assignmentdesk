@@ -26,88 +26,82 @@
          
 
 // --------------- Fetching all Exam from db.json file-------------------------
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
 
-      const [exams , setExams] = useState([]);
+const [exams, setExams] = useState([]);
 
-      useEffect(()=>{
-         
-         async function getAllExam(){
-             let value = await axios.get("http://localhost:3333/Exam");
-             setExams(value.data);
-            //  console.log(exams);
-         }
-             getAllExam();
-      },[]);
-
+useEffect(() => {
+    async function getAllExam() {
+        let value = await axios.get(`${apiUrl}/Exam`); // Use apiUrl here
+        setExams(value.data);
+    }
+    getAllExam();
+}, []);
 
 // --------------------Adding Exam And re-render Exam component-----------------
 
-     var date = new Date();
-     var d =  date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() ;
-     var t =  date.getHours() + ":" + date.getMinutes() +  ":" + date.getSeconds() ;
+var date = new Date();
+var d = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+var t = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
-      const [exam , setExam] = useState({
-        exam_name:"",
-        exam_desc:"",
-        exam_level:"",
-        exam_file:"",
-        exam_passMarks:"",
-        exam_totalQuestion:"",
-        exam_marks:"",
-        exam_date: d+" "+t
+const [exam, setExam] = useState({
+    exam_name: "",
+    exam_desc: "",
+    exam_level: "",
+    exam_file: "",
+    exam_passMarks: "",
+    exam_totalQuestion: "",
+    exam_marks: "",
+    exam_date: d + " " + t
+});
+
+function handleInput(e) {
+    setExam({
+        ...exam,
+        [e.target.name]: e.target.value
     });
+}
 
-   function handleInput(e){
-        setExam({ 
-            ...exam,
-            [e.target.name]: e.target.value
-        });
-        //  console.log(exam);
+function handlecourse(e) {
+    setExam({
+        ...exam,
+        [e.target.name]: e.target.value
+    });
+}
+
+async function handleAddNewExam() {
+    await axios.post(`${apiUrl}/Exam`, exam); // Use apiUrl here
+    setStatus(true);
+}
+
+const [status, setStatus] = useState();
+
+// ----------------------------Deleting Exam-----------------------------------------------
+
+const [questions, setQuestions] = useState([]);
+
+useEffect(() => {
+    async function getAllQuestions() {
+        let value = await axios.get(`${apiUrl}/question`); // Use apiUrl here
+        setQuestions(value.data);
     }
-    function handlecourse(e){
-        setExam({ 
-            ...exam,
-            [e.target.name]: e.target.value
-        });
-        //  console.log(exam);
+    getAllQuestions();
+}, []);
+
+const [statusDeleteExam, setStatusDeleteExam] = useState();
+
+async function deleteExam(idd) {
+    //    console.log(id);
+
+    for (let i = 0; i < questions.length; i++) {
+        if (parseInt(questions[i].exam_id) === parseInt(idd)) {
+            // console.log(questions[i].id);
+            await axios.delete(`${apiUrl}/question/${questions[i].id}`); // Use apiUrl here
+        }
     }
-    async function handleAddNewExam(){
-        await axios.post("http://localhost:3333/Exam" , exam);
-        setStatus(true);
-    }
-
-    const [status , setStatus] = useState();
-
-
-    // ----------------------------Deleting Exam-----------------------------------------------
-
-       const [questions , setQuestions] = useState([]);
-
-       useEffect(() => {
-           async function getAllQuestions(){
-               let value = await axios.get("http://localhost:3333/question");
-               setQuestions(value.data);
-            }
-            getAllQuestions();
-       },[])
-
-
-       const [statusDeleteExam , setStatusDeleteExam] = useState();
-
-
-       async function deleteExam(idd){
-        //    console.log(id);
-           
-            for(let i=0; i<questions.length ;i++)
-            {
-                if( parseInt( questions[i].exam_id) === parseInt( idd )){
-                    // console.log(questions[i].id);
-                    await axios.delete(`http://localhost:3333/question/${questions[i].id}`);
-                } 
-            }
-            await axios.delete(`http://localhost:3333/exam/${idd}`);
-            setStatusDeleteExam(true);
-       }
+    await axios.delete(`${apiUrl}/exam/${idd}`); // Use apiUrl here
+    setStatusDeleteExam(true);
+}
 
       if(status) return <Exam />
 

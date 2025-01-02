@@ -13,12 +13,15 @@ function Exam() {
     const [allExam, setAllExam] = useState([]);
 
     useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
         async function getAllExams() {
-            let value = await axios.get("http://localhost:3333/exam");
+            let value = await axios.get(`${apiUrl}/exam`); // Use apiUrl here
             setAllExam(value.data);
         }
         getAllExams();
-    }, [])
+    }, []);
+    
 
     return (
         <>

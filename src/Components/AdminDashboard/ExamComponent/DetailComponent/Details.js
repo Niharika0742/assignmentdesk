@@ -22,15 +22,17 @@
             exam_submission:""
         });
 
-        useEffect(() => {
-          
-             async function getExamDetails(){
-                const value = await axios.get(`http://localhost:3333/Exam/${id}`);
-                setExam(value.data);
-             }
-             getExamDetails();
-        },[id])
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
 
+        useEffect(() => {
+            async function getExamDetails() {
+                // Use apiUrl instead of hardcoded URL
+                const value = await axios.get(`${apiUrl}/Exam/${id}`);
+                setExam(value.data);
+            }
+            getExamDetails();
+        }, [id, apiUrl]);  // Add apiUrl to the dependency array
+    
    // -------------------------Go back function---------------------------------------
      
       let history = useHistory();

@@ -11,16 +11,16 @@
     function Result(){
 
         const [results , setResults] = useState([]);
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
 
-        useEffect(()=>{
-           
-           async function getAllResults(){
-               let value = await axios.get("http://localhost:3333/result");
-               setResults(value.data);
-           }
-               getAllResults();
-        },[]);
-
+        useEffect(() => {
+            async function getAllResults() {
+                let value = await axios.get(`${apiUrl}/result`); // Use apiUrl here
+                setResults(value.data);
+            }
+            getAllResults();
+        }, []);
+        
         return (
             <>
                <div id={style.displayHeadingBox}> 

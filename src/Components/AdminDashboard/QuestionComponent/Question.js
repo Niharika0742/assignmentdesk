@@ -30,83 +30,83 @@
 
       useEffect(()=>{
          
-         async function getAllExam(){
-             let value = await axios.get("http://localhost:3333/Exam");
-             setExams(value.data);
-            //  console.log(exams);
-         }
-             getAllExam();
-      },[]);
+        async function getAllExam(){
+            let value = await axios.get("http://localhost:3333/Exam");
+            setExams(value.data);
+           //  console.log(exams);
+        }
+            getAllExam();
+     },[]);
 
 
 // --------------------Adding Exam And re-render Exam component-----------------
 
-     var date = new Date();
-     var d =  date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() ;
-     var t =  date.getHours() + ":" + date.getMinutes() +  ":" + date.getSeconds() ;
+    var date = new Date();
+    var d =  date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear() ;
+    var t =  date.getHours() + ":" + date.getMinutes() +  ":" + date.getSeconds() ;
 
-      const [exam , setExam] = useState({
-        exam_name:"",
-        exam_desc:"",
-        exam_level:"",
-        exam_file:"",
-        exam_passMarks:"",
-        exam_totalQuestion:"",
-        exam_marks:"",
-        exam_date: d+" "+t
-    });
+     const [exam , setExam] = useState({
+       exam_name:"",
+       exam_desc:"",
+       exam_level:"",
+       exam_file:"",
+       exam_passMarks:"",
+       exam_totalQuestion:"",
+       exam_marks:"",
+       exam_date: d+" "+t
+   });
 
-   function handleInput(e){
-        setExam({ 
-            ...exam,
-            [e.target.name]: e.target.value
-        });
-        //  console.log(exam);
-    }
-    function handlecourse(e){
-        setExam({ 
-            ...exam,
-            [e.target.name]: e.target.value
-        });
-        //  console.log(exam);
-    }
-    async function handleAddNewExam(){
-        await axios.post("http://localhost:3333/Exam" , exam);
-        setStatus(true);
-    }
+  function handleInput(e){
+       setExam({ 
+           ...exam,
+           [e.target.name]: e.target.value
+       });
+       //  console.log(exam);
+   }
+   function handlecourse(e){
+       setExam({ 
+           ...exam,
+           [e.target.name]: e.target.value
+       });
+       //  console.log(exam);
+   }
+   async function handleAddNewExam(){
+       await axios.post("http://localhost:3333/Exam" , exam);
+       setStatus(true);
+   }
 
-    const [status , setStatus] = useState();
-
-
-    // ----------------------------Deleting Exam-----------------------------------------------
-
-       const [questions , setQuestions] = useState([]);
-
-       useEffect(() => {
-           async function getAllQuestions(){
-               let value = await axios.get("http://localhost:3333/question");
-               setQuestions(value.data);
-            }
-            getAllQuestions();
-       },[])
+   const [status , setStatus] = useState();
 
 
-       const [statusDeleteExam , setStatusDeleteExam] = useState();
+   // ----------------------------Deleting Exam-----------------------------------------------
+
+      const [questions , setQuestions] = useState([]);
+
+      useEffect(() => {
+          async function getAllQuestions(){
+              let value = await axios.get("http://localhost:3333/question");
+              setQuestions(value.data);
+           }
+           getAllQuestions();
+      },[])
 
 
-       async function deleteExam(id){
-        //    console.log(id);
-           
-            for(let i=0; i<questions.length ;i++)
-            {
-                if( parseInt( questions[i].exam_id) === parseInt( id )){
-                    // console.log(questions[i].id);
-                    await axios.delete(`http://localhost:3333/question/${questions[i].id}`);
-                } 
-            }
-            await axios.delete(`http://localhost:3333/exam/${id}`);
-            setStatusDeleteExam(true);
-       }
+      const [statusDeleteExam , setStatusDeleteExam] = useState();
+
+
+      async function deleteExam(id){
+       //    console.log(id);
+          
+           for(let i=0; i<questions.length ;i++)
+           {
+               if( parseInt( questions[i].exam_id) === parseInt( id )){
+                   // console.log(questions[i].id);
+                   await axios.delete(`http://localhost:3333/question/${questions[i].id}`);
+               } 
+           }
+           await axios.delete(`http://localhost:3333/exam/${id}`);
+           setStatusDeleteExam(true);
+      }
 
       if(status) return <Exam />
 

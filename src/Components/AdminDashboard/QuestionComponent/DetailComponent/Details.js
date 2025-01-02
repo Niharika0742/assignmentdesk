@@ -10,7 +10,7 @@ import {useHistory , useParams} from "react-router-dom";
  function Details(){
      
      const {id} = useParams();
-
+     const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
      const [exam  , setExam] = useState({
          exam_name:"",
          exam_desc:"",
@@ -23,13 +23,14 @@ import {useHistory , useParams} from "react-router-dom";
      });
 
      useEffect(() => {
-       
-          async function getExamDetails(){
-             const value = await axios.get(`http://localhost:3333/Exam/${id}`);
-             setExam(value.data);
-          }
-          getExamDetails();
-     },[id])
+     // const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl outside of the function
+  
+      async function getExamDetails() {
+          const value = await axios.get(`${apiUrl}/Exam/${id}`); // Use apiUrl here
+          setExam(value.data);
+      }
+      getExamDetails();
+  }, [id]);
 
 // -------------------------Go back function---------------------------------------
   

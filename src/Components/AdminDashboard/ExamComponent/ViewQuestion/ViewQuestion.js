@@ -32,14 +32,16 @@
     
       const [questions , setQuestions] = useState([]);
 
-      useEffect(() => {
-          async function getAllQuestions(){
-            let value = await axios.get("http://localhost:3333/question");
-            setQuestions(value.data);
-          } 
-          getAllQuestions();
-      },[])
+      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
 
+      useEffect(() => {
+          async function getAllQuestions() {
+              // Use apiUrl instead of hardcoded URL
+              let value = await axios.get(`${apiUrl}/question`);
+              setQuestions(value.data);
+          }
+          getAllQuestions();
+      }, []);
 
 //  ---------------------- handling text field -------------------------------------
 
@@ -87,10 +89,11 @@
     const [check , setCheck] = useState();
     
 
-     async function updateQuestion(){
-          await axios.put(`http://localhost:3333/question/${qId}` , updatedQ);
-          setCheck(true);
-     }
+    async function updateQuestion() {
+        // Use apiUrl instead of hardcoded URL
+        await axios.put(`${apiUrl}/question/${qId}`, updatedQ);
+        setCheck(true);
+    }
 
 // ----------------------------------------------------------------------------------------
 
@@ -103,10 +106,11 @@
  
     const [d , setD] = useState();
 
-     async function deleteQuestion(id){
-         await axios.delete(`http://localhost:3333/question/${id}`);
-         setD(true);
-     }
+    async function deleteQuestion(id) {
+        // Use apiUrl instead of hardcoded URL
+        await axios.delete(`${apiUrl}/question/${id}`);
+        setD(true);
+    }
   
 
        if(check) return <ViewQuestion />;

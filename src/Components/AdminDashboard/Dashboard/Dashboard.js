@@ -14,24 +14,25 @@
           const [exam , setExam] = useState("Updating...");
           const [subject , setCourses] = useState("Updating...");
           const [user , setUser] = useState("Updating...");
+          const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
 
             useEffect(() => {
                 async function getAllExam(){
-                    let value  = await axios.get("http://localhost:3333/exam");
+                    let value  = await axios.get(`${apiUrl}/exam`);
                     setExam(value.data.length);
                 }
                 getAllExam();
 
 
                 async function getAllCourses(){
-                    let value  = await axios.get("http://localhost:3333/subject");
+                    let value  = await axios.get(`${apiUrl}/subject`);
                     setCourses(value.data.length);
                 }
                 getAllCourses();
 
 
                 async function getAllUsers(){
-                    let value  = await axios.get("http://localhost:3333/user");
+                    let value  = await axios.get(`${apiUrl}/user`);
                     setUser(value.data.length);
                 }
                 getAllUsers();

@@ -29,15 +29,16 @@
 
       const [exams , setExams] = useState([]);
 
-      useEffect(()=>{
-         
-         async function getAllExam(){
-             let value = await axios.get("http://localhost:3333/Exam");
-             setExams(value.data);
-            //  console.log(exams);
-         }
-             getAllExam();
-      },[]);
+      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
+
+      useEffect(() => {
+          async function getAllExam() {
+              let value = await axios.get(`${apiUrl}/Exam`); // Use apiUrl here
+              setExams(value.data);
+              // console.log(exams);
+          }
+          getAllExam();
+      }, []);
 
 
 // --------------------Adding Exam And re-render Exam component-----------------

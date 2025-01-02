@@ -25,34 +25,39 @@ function Login() {
     npass:""
  });
 
- useEffect(()=>{    
-    async function getAllusers(){
-        let value = await axios.get(`http://localhost:3333/user/${id}`);
-        setUserData(value.data);
-    }
-        getAllusers();
- },[id]);
- let history =useHistory();
- function onTextFieldChange(e){
-    setUserData({
-        ...userData,
-        [e.target.name] : e.target.value
-    });
+ useEffect(() => {
+  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+
+  async function getAllusers() {
+      let value = await axios.get(`${apiUrl}/user/${id}`); // Use apiUrl here
+      setUserData(value.data);
+  }
+  getAllusers();
+}, [id]);
+
+let history = useHistory();
+
+function onTextFieldChange(e) {
+  setUserData({
+      ...userData,
+      [e.target.name]: e.target.value
+  });
 }
-  async function handleSubmit(event){
-    event.preventDefault();
-    var { uname,email,number,student_id,gender,course,branch,institution,npass,cpass } = document.forms[0];
 
-      if (npass.value !== cpass.value) {
+async function handleSubmit(event) {
+  event.preventDefault();
+  var { uname, email, number, student_id, gender, course, branch, institution, npass, cpass } = document.forms[0];
 
-        setErrorMessages({ name: "pass", message: errors.pass });
-      }else {
-        setIsSubmitted(true);
-        setUserData(uname,email,number,student_id,gender,course,branch,institution,npass);
-        await axios.put(`http://localhost:3333/user/${id}`, userData);
-    
-      }
-  };
+  if (npass.value !== cpass.value) {
+      setErrorMessages({ name: "pass", message: errors.pass });
+  } else {
+      setIsSubmitted(true);
+      setUserData({ uname, email, number, student_id, gender, course, branch, institution, npass });
+      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+      await axios.put(`${apiUrl}/user/${id}`, userData); // Use apiUrl here
+  }
+};
+
 
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>

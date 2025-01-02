@@ -14,12 +14,15 @@
         const [allSubject , setAllSubject] = useState([]);
 
         useEffect(() => {
-            async function getAllSubject(){
-                let value = await axios.get("http://localhost:3333/subject");
+            const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+        
+            async function getAllSubject() {
+                let value = await axios.get(`${apiUrl}/subject`); // Use apiUrl here
                 setAllSubject(value.data);
             }
             getAllSubject();
-        },[])
+        }, []);
+        
 
 
        return (

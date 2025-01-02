@@ -20,28 +20,37 @@ function Test() {
     const [test , setTest] = useState({
         exam_name:"",exam_desc:"",exam_level:"",exam_passMarks:"",exam_totalQuestion:"",exam_marks:"",exam_date:""
     });
-     useEffect(()=>{    
-        async function getAllusers(){
-            let value = await axios.get(`http://localhost:3333/Exam/${id}`);
+    useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
+        async function getAllusers() {
+            let value = await axios.get(`${apiUrl}/Exam/${id}`); // Use apiUrl here
             setTest(value.data);
-            setMinutues(value.data.exam_totalQuestion)
+            setMinutues(value.data.exam_totalQuestion);
         }
-            getAllusers();
-     },[id]);
-     useEffect(() => {
-        async function getAlldata(){
-            let value = await axios.get(`http://localhost:3333/user/${category}`);
+        getAllusers();
+    }, [id]);
+    
+    useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
+        async function getAlldata() {
+            let value = await axios.get(`${apiUrl}/user/${category}`); // Use apiUrl here
             setUserdata(value.data);
         }
         getAlldata();
-    },[]);
+    }, []);
+    
     useEffect(() => {
-        async function getAllQuestions(){
-            let value = await axios.get("http://localhost:3333/question");
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
+        async function getAllQuestions() {
+            let value = await axios.get(`${apiUrl}/question`); // Use apiUrl here
             setAllQuestions(value.data);
         }
         getAllQuestions();
-    },[]);
+    }, []);
+    
 
     const [answer,setAnswer]  = useState({
         ans1:"",ans2:"",ans3:"",ans4:"",ans5:"",ans6:"",ans7:"",ans8:"",ans9:"",ans10:"",ans11:"",ans12:"",ans13:"",ans14:"",ans15:"",ans16:"",ans17:"",ans18:"",ans19:"",ans20:"",ans21:"",ans22:"",ans23:"",ans24:"",ans25:""
@@ -66,6 +75,7 @@ function Test() {
     }
     async function submitTest()
     {   
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
         let score = 0;
         let status = "";
         for(let i=1;i<=count;i++){
@@ -103,7 +113,7 @@ function Test() {
          "time_spent":m+":"+s
        }; 
  
-        await axios.post("http://localhost:3333/result" , data);
+       await axios.post(`${apiUrl}/result`, data);
         clearInterval(timer);
         history.push(`/StudentDashboard/Result/${category}`); 
     }

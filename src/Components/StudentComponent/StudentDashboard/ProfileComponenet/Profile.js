@@ -23,23 +23,30 @@ function Result() {
         institution:""
     });
 
-     useEffect(()=>{    
-        async function getAllusers(){
-            let value = await axios.get(`http://localhost:3333/user/${id}`);
+    useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
+        async function getAllusers() {
+            let value = await axios.get(`${apiUrl}/user/${id}`); // Use apiUrl here
             setUser(value.data);
         }
-            getAllusers();
-     },[id]);
-     useEffect(()=>{    
-        async function getProfile(){
-            let value = await axios.get(`http://localhost:3333/user/${id}`);
-            if(value.data.gender==="Male"){
+        getAllusers();
+    }, [id]);
+    
+    useEffect(() => {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
+        async function getProfile() {
+            let value = await axios.get(`${apiUrl}/user/${id}`); // Use apiUrl here
+            if (value.data.gender === "Male") {
                 setImage(male);
+            } else {
+                setImage(female);
             }
-            else{setImage(female)}
         }
-            getProfile();
-     },[id]);
+        getProfile();
+    }, [id]);
+    
 
 
     return (

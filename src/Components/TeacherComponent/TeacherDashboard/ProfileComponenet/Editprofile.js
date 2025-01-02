@@ -26,27 +26,34 @@ function Login() {
     npass:""
  });
 
- useEffect(()=>{    
-    async function getAllusers(){
-        let value = await axios.get(`http://localhost:3333/user/${id}`);
+ const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
+
+useEffect(() => {
+    async function getAllusers() {
+        let value = await axios.get(`${apiUrl}/user/${id}`); // Use apiUrl here
         setUserData(value.data);
     }
-        getAllusers();
- },[id]);
- let history =useHistory();
- function onTextFieldChange(e){
+    getAllusers();
+}, [id]);
+
+let history = useHistory();
+
+function onTextFieldChange(e) {
     setUserData({
         ...userData,
-        [e.target.name] : e.target.value
+        [e.target.name]: e.target.value
     });
 }
-  async function handleSubmit(event){
+
+async function handleSubmit(event) {
+  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
     event.preventDefault();
-    var { uname,teacher_id,designation,email,number,gender,department,institution,role,npass} = document.forms[0];
-        setIsSubmitted(true);
-        setUserData(uname,teacher_id,designation,email,number,gender,department,institution,role,npass);
-        await axios.put(`http://localhost:3333/user/${id}`, userData);
-  };
+    var { uname, teacher_id, designation, email, number, gender, department, institution, role, npass } = document.forms[0];
+    setIsSubmitted(true);
+    setUserData(uname, teacher_id, designation, email, number, gender, department, institution, role, npass);
+    await axios.put(`${apiUrl}/user/${id}`, userData); // Use apiUrl here
+};
+
 
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>

@@ -16,23 +16,28 @@
          const[user , setUser] = useState([]);
 
 
-         useEffect(() => {   
-             async function getUser(){
-                let value = await axios.get(`http://localhost:3333/user/${id}`);
+         useEffect(() => {
+            const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+        
+            async function getUser() {
+                let value = await axios.get(`${apiUrl}/user/${id}`); // Use apiUrl here
                 setUser(value.data);
-             }
-             getUser();
-        },[])
-         const[result , setResult] = useState([]);
-
-
-         useEffect(() => {   
-             async function getAllResult(){
-                let value = await axios.get("http://localhost:3333/Result");
+            }
+            getUser();
+        }, [id]);
+        
+        const [result, setResult] = useState([]);
+        
+        useEffect(() => {
+            const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+        
+            async function getAllResult() {
+                let value = await axios.get(`${apiUrl}/Result`); // Use apiUrl here
                 setResult(value.data);
-             }
-             getAllResult();
-        },[])
+            }
+            getAllResult();
+        }, []);
+        
 
 
          const history = useHistory();

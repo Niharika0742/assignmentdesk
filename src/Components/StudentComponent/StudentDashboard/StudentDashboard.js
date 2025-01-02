@@ -15,23 +15,27 @@
     import TestPractise from "./PractiseTestComponent/TestPractise";
     import Test from "./TestComponent/Test";
 
-      function StudentDashboard(){
-        const {id} = useParams();
-        const [user,setUser]=useState();
-        useEffect(()=>{    
-            async function getAllusers(){
-                let value = await axios.get(`http://localhost:3333/user/${id}`);
+    function StudentDashboard() {
+        const { id } = useParams();
+        const [user, setUser] = useState();
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+    
+        useEffect(() => {    
+            async function getAllusers() {
+                let value = await axios.get(`${apiUrl}/user/${id}`); // Use apiUrl here
                 setUser(value.data.uname);
             }
-                getAllusers();
-         },[id]);
-       
-         let history = useHistory();
-
-         function logout(){
-             sessionStorage.clear();
+            getAllusers();
+        }, [id]);
+    
+        let history = useHistory();
+    
+        function logout() {
+            sessionStorage.clear();
             history.push("/");
-         }     
+        }
+    
+       
           return (
               <>
              <BrowserRouter>

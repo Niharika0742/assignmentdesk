@@ -9,7 +9,7 @@ import axios from "axios";
 
       
       function AddQuestion(){
-
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
         const {id} = useParams();
 
          const [question , setQuestion] = useState({
@@ -38,10 +38,10 @@ import axios from "axios";
             }
 
 
-            async function addnewQuestion(){
-                await axios.post("http://localhost:3333/question" , question);
-                history.push(`/AdminDashboard/Question`);
-            }
+            async function addnewQuestion() {
+              await axios.post(`${apiUrl}/question`, question); // Use apiUrl here
+              history.push(`/AdminDashboard/Question`);
+          }
             
 
 

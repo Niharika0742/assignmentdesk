@@ -18,14 +18,16 @@ function ViewQuestion() {
     let count=0;
 
     useEffect(() => {
-        async function getAllQuestions(){
-            let value = await axios.get("http://localhost:3333/question");
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl outside of the function
+    
+        async function getAllQuestions() {
+            let value = await axios.get(`${apiUrl}/question`); // Use apiUrl here
             setAllQuestions(value.data);
         }
         getAllQuestions();
-    },[]);
-
-    const [updatedQ , setUpdatedQ] = useState({
+    }, []);
+    
+    const [updatedQ, setUpdatedQ] = useState({
         question_name: "",
         option_one: "",
         option_two: "",
@@ -33,29 +35,36 @@ function ViewQuestion() {
         option_four: "",
         question_answer: "",
         exam_id: id,
-        subject_name:""
-      });
-      async function onTextFieldChange(e,qid){
-        let value = await axios.get(`http://localhost:3333/question/${qid}`);
+        subject_name: ""
+    });
+    
+    async function onTextFieldChange(e, qid) {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+        let value = await axios.get(`${apiUrl}/question/${qid}`); // Use apiUrl here
         setUpdatedQ(value.data);
-     }
-   const [questions , setQuestions] = useState([]);
-   const [check , setCheck] = useState();
-   async function updateQuestion(e){
-    for(let i=0; i<allQuestions.length ; i++)
-    {
-        if( parseInt( allQuestions[i].id) === parseInt(e)) {
-                setUpdatedQ(allQuestions[i]);
-        }
     }
-    await axios.put(`http://localhost:3333/question/${e}` , updatedQ);
-    setCheck(true);
-}
-     let history = useHistory();
-     if(check) return <ViewQuestion />;
-     function handleGoBack(){
+    
+    const [questions, setQuestions] = useState([]);
+    const [check, setCheck] = useState();
+    
+    async function updateQuestion(e) {
+        const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333"; // Define apiUrl here
+        for (let i = 0; i < allQuestions.length; i++) {
+            if (parseInt(allQuestions[i].id) === parseInt(e)) {
+                setUpdatedQ(allQuestions[i]);
+            }
+        }
+        await axios.put(`${apiUrl}/question/${e}`, updatedQ); // Use apiUrl here
+        setCheck(true);
+    }
+    
+    let history = useHistory();
+    if (check) return <ViewQuestion />;
+    
+    function handleGoBack() {
         history.push("/AdminDashboard/Question");
     }
+    
     return (
         <>
             <div id={style.displayHeadingBox}> 

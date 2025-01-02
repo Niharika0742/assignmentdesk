@@ -22,14 +22,16 @@ import {useHistory , useParams} from "react-router-dom";
          exam_submission:""
      });
 
+     const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3333";
+
      useEffect(() => {
-       
-          async function getExamDetails(){
-             const value = await axios.get(`http://localhost:3333/Exam/${id}`);
+         async function getExamDetails() {
+             const value = await axios.get(`${apiUrl}/Exam/${id}`); // Use apiUrl here
              setExam(value.data);
-          }
-          getExamDetails();
-     },[id])
+         }
+         getExamDetails();
+     }, [id]);
+     
 
 // -------------------------Go back function---------------------------------------
   
